@@ -1,0 +1,26 @@
+{
+  "name": "hooks-wallet-communication-wallet-beacon",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/hooks/wallet-communication/wallet-beacon/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/hooks/wallet-communication/wallet-beacon/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/hooks/wallet-communication/wallet-beacon"],
+      "options": {
+        "jestConfig": "libs/hooks/wallet-communication/wallet-beacon/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

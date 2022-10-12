@@ -1,0 +1,43 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@ae-wallet-connection/aepp-wallet-communication/wallet-connect": [
+        "libs/aepp-wallet-communication/wallet-connect/src/index.ts"
+      ],
+      "@ae-wallet-connection/aeternity/dapp": [
+        "libs/aeternity/dapp/src/index.ts"
+      ],
+      "@ae-wallet-connection/aeternity/wallet": [
+        "libs/aeternity/wallet/src/index.ts"
+      ],
+      "@ae-wallet-connection/hooks/sdk": ["libs/hooks/sdk/src/index.ts"],
+      "@ae-wallet-connection/hooks/wallet-communication/shared": [
+        "libs/hooks/wallet-communication/shared/src/index.ts"
+      ],
+      "@ae-wallet-connection/hooks/wallet-communication/wallet-beacon": [
+        "libs/hooks/wallet-communication/wallet-beacon/src/index.ts"
+      ],
+      "@ae-wallet-connection/hooks/wallet-communication/wallet-connect": [
+        "libs/hooks/wallet-communication/wallet-connect/src/index.ts"
+      ],
+      "@ae-wallet-connection/ui/providers/sdk": [
+        "libs/ui/providers/sdk/src/index.ts"
+      ]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

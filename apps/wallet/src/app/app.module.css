@@ -1,0 +1,63 @@
+/* Your styles goes here. */
+.container {
+  max-width: 500px;
+  padding: 24px;
+  margin: 0 auto;
+}
+
+.row {
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card {
+  background-color: #fff;
+  color: #000;
+  padding: 16px;
+  border-radius: 8px;
+  margin: 24px 0;
+}
+
+.button {
+  width: 50%;
+  height: 40px;
+
+  border: none;
+  color: rgb(255, 255, 255);
+  box-shadow: rgb(50 50 93 / 11%) 0px 4px 6px 0px,
+    rgb(0 0 0 / 8%) 0px 1px 3px 0px, rgb(0 0 0 / 6%) 0px 0px 1px 0px inset;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 8px 12px;
+  cursor: pointer;
+  will-change: transform;
+  width: 50%;
+  height: 40px;
+}
+
+.input {
+  border: none;
+  background: rgb(255, 255, 255);
+  padding: 12px;
+  outline: none;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  border-radius: 8px;
+  box-shadow: rgb(0 0 0 / 10%) 0px 2px 6px 0px,
+    rgb(50 50 93 / 2%) 0px 0px 1px 0px, rgb(59 59 92 / 15%) -1px 2px 10px 0px;
+}
+
+.black-bg {
+  background-color: rgb(12, 12, 13);
+}
+
+.red-bg {
+  background-color: rgb(214, 23, 23);
+}
+

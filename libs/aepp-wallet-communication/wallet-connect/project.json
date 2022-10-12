@@ -1,0 +1,26 @@
+{
+  "name": "aepp-wallet-communication-wallet-connect",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/aepp-wallet-communication/wallet-connect/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/aepp-wallet-communication/wallet-connect/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/aepp-wallet-communication/wallet-connect"],
+      "options": {
+        "jestConfig": "libs/aepp-wallet-communication/wallet-connect/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
