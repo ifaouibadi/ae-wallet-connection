@@ -1,0 +1,26 @@
+{
+  "name": "features-aepp-communication-wallet-beacon",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/features/aepp-communication/wallet-beacon/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/features/aepp-communication/wallet-beacon/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/features/aepp-communication/wallet-beacon"],
+      "options": {
+        "jestConfig": "libs/features/aepp-communication/wallet-beacon/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "features-aepp-communication-shared",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/features/aepp-communication/shared/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/features/aepp-communication/shared/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/features/aepp-communication/shared"],
+      "options": {
+        "jestConfig": "libs/features/aepp-communication/shared/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

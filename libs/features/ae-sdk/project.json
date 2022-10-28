@@ -1,0 +1,24 @@
+{
+  "name": "features-ae-sdk",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/features/ae-sdk/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/features/ae-sdk/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/features/ae-sdk"],
+      "options": {
+        "jestConfig": "libs/features/ae-sdk/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

@@ -1,19 +1,26 @@
 
+import { AeppSdkProvider } from "@ae-wallet-connection/features/ae-sdk";
+import { WalletConnectProvider } from "@ae-wallet-connection/features/aepp-communication/wallet-connect";
+import { Header } from "@ae-wallet-connection/ui/dapp";
 import { Route, Routes } from "react-router-dom";
-import { AeppSdkProvider } from "libs/ui/providers/sdk/src";
 
 
 import Home from "./screens/home/home";
 
 export function App() {
   return (
-    <AeppSdkProvider>
-      <Routes>
-        <Route
-          path="/"
-          element={<Home />}
-        />
-      </Routes>
+    <AeppSdkProvider
+      providers={[new WalletConnectProvider()]}
+    >
+      <>
+        <Header />
+        <Routes>
+          <Route
+            path="/"
+            element={<Home />}
+          />
+        </Routes>
+      </>
     </AeppSdkProvider>
   );
 }

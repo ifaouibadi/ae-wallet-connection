@@ -1,0 +1,24 @@
+{
+  "name": "features-chakra-ui",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/features/chakra-ui/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/features/chakra-ui/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/features/chakra-ui"],
+      "options": {
+        "jestConfig": "libs/features/chakra-ui/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

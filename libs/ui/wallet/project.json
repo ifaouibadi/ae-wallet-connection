@@ -1,0 +1,24 @@
+{
+  "name": "ui-wallet",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/ui/wallet/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/ui/wallet/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ui/wallet"],
+      "options": {
+        "jestConfig": "libs/ui/wallet/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

@@ -1,4 +1,6 @@
-import { AeppSdkContext } from 'libs/ui/providers/sdk/src';
+import { AeppSdkContext } from '@ae-wallet-connection/features/ae-sdk';
+import { WalletConnectBtn } from '@ae-wallet-connection/ui/dapp';
+import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Code, Container, Heading, Spinner, VStack } from '@chakra-ui/react';
 import { useContext } from 'react';
 import styles from './home.module.css';
 
@@ -6,54 +8,53 @@ import styles from './home.module.css';
 export interface HomeProps { }
 
 export function Home(props: HomeProps) {
-  const { sdk, sdkReady, walletConnectorReady, walletConnected, connectWallet, disconnectWallet } = useContext(AeppSdkContext);
+  const { sdkReady, walletConnected, accounts } = useContext(AeppSdkContext);
 
-  const appReady = sdkReady && walletConnectorReady;
-
-  const getAddresses = async () => {
-    const _addresses = sdk.current?.addresses();
-
-    console.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@======");
-    console.info("dapp getAddresses ::", _addresses);
-    console.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@======");
-  }
+  const appReady = sdkReady;
 
 
-  const renderConnectToWallet = () => (appReady && !walletConnected) && (
-    <div>
-      <button onClick={connectWallet}>
-        Connect To Wallet
-      </button>
-    </div>
+  const renderAccounts = () => walletConnected && (
+    <Box>
+      <Heading size='md'>Accounts :</Heading>
+      <Code>
+        {JSON.stringify(accounts, null, 4)}
+      </Code>
+    </Box>
   )
 
-  const renderDisconnectWallet = () => (appReady && walletConnected) && (
-    <div>
-      <button onClick={disconnectWallet}>
-        Disconnect
-      </button>
-    </div>
-  )
-
-  const renderGetAddress = () => (appReady && walletConnected) && (
-    <div>
-      <br />
-      <button onClick={getAddresses}>
-        Get Address
-      </button>
-    </div>
+  const renderConnectWallet = () => !walletConnected && (
+    <WalletConnectBtn />
   )
 
   return (
-    <div className={styles['container']}>
-      <h3>APP {appReady ? 'Ready' : 'Not Ready'}</h3>
-      <br />
-      {renderConnectToWallet()}
-      {renderDisconnectWallet()}
-      {renderGetAddress()}
-      <br />
+    <Container>
+      <VStack className={styles['container']}>
+        <Box pt={8}>
+          {
+            appReady ? (
+              <Alert status='info'>
+                <AlertIcon />
+                <AlertTitle>AeSDK </AlertTitle>
+                <AlertDescription> is ready {walletConnected ? ' and wallet is connected!' : 'for wallet connection!'}</AlertDescription>
+              </Alert>
+            ) : (
+              <Spinner
+                thickness='4px'
+                speed='0.65s'
+                emptyColor='gray.200'
+                color='red.500'
+                size='xl'
+              />
+            )
+          }
+        </Box>
+        <br />
+        {renderAccounts()}
+        {renderConnectWallet()}
+        <br />
 
-    </div>
+      </VStack>
+    </Container>
   );
 }
 

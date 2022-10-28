@@ -15,28 +15,29 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ae-wallet-connection/aepp-wallet-communication/wallet-connect": [
-        "libs/aepp-wallet-communication/wallet-connect/src/index.ts"
+      "@ae-wallet-connection/features/ae-sdk": [
+        "libs/features/ae-sdk/src/index.ts"
       ],
-      "@ae-wallet-connection/aeternity/dapp": [
-        "libs/aeternity/dapp/src/index.ts"
+      "@ae-wallet-connection/features/aepp-communication/shared": [
+        "libs/features/aepp-communication/shared/src/index.ts"
       ],
-      "@ae-wallet-connection/aeternity/wallet": [
-        "libs/aeternity/wallet/src/index.ts"
+      "@ae-wallet-connection/features/aepp-communication/wallet-beacon": [
+        "libs/features/aepp-communication/wallet-beacon/src/index.ts"
       ],
-      "@ae-wallet-connection/hooks/sdk": ["libs/hooks/sdk/src/index.ts"],
-      "@ae-wallet-connection/hooks/wallet-communication/shared": [
-        "libs/hooks/wallet-communication/shared/src/index.ts"
+      "@ae-wallet-connection/features/aepp-communication/wallet-connect": [
+        "libs/features/aepp-communication/wallet-connect/src/index.ts"
       ],
-      "@ae-wallet-connection/hooks/wallet-communication/wallet-beacon": [
-        "libs/hooks/wallet-communication/wallet-beacon/src/index.ts"
+      "@ae-wallet-connection/features/async-storage": [
+        "libs/features/async-storage/src/index.ts"
       ],
-      "@ae-wallet-connection/hooks/wallet-communication/wallet-connect": [
-        "libs/hooks/wallet-communication/wallet-connect/src/index.ts"
+      "@ae-wallet-connection/features/chakra-ui": [
+        "libs/features/chakra-ui/src/index.ts"
       ],
-      "@ae-wallet-connection/ui/providers/sdk": [
-        "libs/ui/providers/sdk/src/index.ts"
-      ]
+      "@ae-wallet-connection/ui/components": [
+        "libs/ui/components/src/index.ts"
+      ],
+      "@ae-wallet-connection/ui/dapp": ["libs/ui/dapp/src/index.ts"],
+      "@ae-wallet-connection/ui/wallet": ["libs/ui/wallet/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

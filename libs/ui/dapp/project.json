@@ -1,0 +1,24 @@
+{
+  "name": "ui-dapp",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/ui/dapp/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/ui/dapp/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ui/dapp"],
+      "options": {
+        "jestConfig": "libs/ui/dapp/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

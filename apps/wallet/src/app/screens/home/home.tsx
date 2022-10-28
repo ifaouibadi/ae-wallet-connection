@@ -1,110 +1,152 @@
-import WalletConnect from '@walletconnect/client';
-import { WalletSdkContext } from 'libs/ui/providers/sdk/src';
-import { useContext } from 'react';
-import styles from './home.module.css';
+import { WalletSdkContext } from '@ae-wallet-connection/features/ae-sdk';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, Container, Heading, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spinner, Text, Textarea } from '@chakra-ui/react';
+import { useContext, useState } from 'react';
+import { QrReader } from 'react-qr-reader';
 
 /* eslint-disable-next-line */
 export interface HomeProps { }
 
 export function Home(props: HomeProps) {
-  const { sdk, sdkReady, clients, addAeppClient, acceptAeppClientConnection, rejectAeppClientConnection, disconnectClient } = useContext(WalletSdkContext);
+  const { sdkReady, clients, connectClient, disconnectClient } = useContext(WalletSdkContext);
+
+  const [code, setCode] = useState<string>('');
+  const [scanCode, setScanCode] = useState(false);
 
 
-
-  const onAddClient = (uri: string) => {
+  const onAddClient = async (uri: string) => {
     if (!uri) return;
 
-    addAeppClient({
+    await connectClient({
       uri,
-    })
+      provider: 'aepp-communication/wallet-connect'
+    });
+    setCode('');
   }
 
   const renderScanAndWalletInputCard = () => sdkReady && (
-    <div className={styles['card']}>
-      <div className={styles['row']}>
-        <button className={[styles['button'], styles['black-bg']].join(' ')}>
-          Scan
-        </button>
-        <div>
-          OR
-        </div>
-        <input
-          className={styles['input']}
-          placeholder='Paste wc: uri'
-          onChange={event => onAddClient(event.target.value)}
-        />
-      </div>
-    </div>
+    <Box mt={8} p={5} shadow='md' borderWidth='1px' >
+      <Heading fontSize='xl' >Add Clients</Heading>
+      <Textarea
+        my={4}
+        placeholder='Paste wc: uri'
+        value={code}
+        onChange={e => setCode(e.target.value)}
+      />
+      <Button onClick={() => onAddClient(code)}>
+        Add Client
+      </Button>
+      <br />
+      <br />
+      <Button onClick={() => setScanCode(true)}>
+        Scan
+      </Button>
+
+    </Box>
+
   )
 
-  const renderClients = () => (
+  const renderQrScanner = () => (
+    <Modal isOpen={scanCode} onClose={() => setScanCode(false)}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Scan Connection Code</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
+          <QrReader
+            onResult={(result: any, error) => {
+              if (result && result.text) {
+                setScanCode(false);
+                onAddClient(result.text)
+              }
+
+              if (error) {
+                console.info(error);
+              }
+            }}
+            constraints={{
+              facingMode: 'environment'
+            }}
+          />
+        </ModalBody>
+      </ModalContent>
+    </Modal>
+  )
+
+  const renderClients = () => (clients && Array.isArray(clients)) && (
     <div>
-      <h2>Clients ({clients.length}) ::</h2>
       {
-        clients.map((client: WalletConnect, index: number) => (
-          <div key={index} className={styles['card']}>
-            Peer ID: {client.peerId} <br />
-            Chain ID: {client.chainId} <br />
-            Session Peer ID:  {client.session.peerId} <br />
-            Name:: {client.peerMeta?.name}<br />
-            Website:: {client.peerMeta?.url}<br />
-            <br />
-            Connected: {client.connected ? 'Yes' : 'No'}
+        clients.map((client: any, index: number) => (
+          <Box
+            key={index}
+            mt={8} p={4} shadow='md' borderWidth='1px' >
+            <Text fontSize='md' >
+              <strong>App Name:</strong> {client.name}
+            </Text>
+            <Text fontSize='md' >
+              <strong>Client ID:</strong> {client.clientId}
+            </Text>
+            <Text fontSize='md' >
+              <strong>Provider:</strong> {client.origin}
+            </Text>
 
-            {
-              !client.connected && (
-                <div className={styles['row']}>
-                  <button
-                    className={[styles['button'], styles['black-bg']].join(' ')}
-                    onClick={() => acceptAeppClientConnection(client)}
-                  >
-                    Approve
-                  </button>
-                  <div style={{ width: '5px' }} />
-                  <button
-                    className={[styles['button'], styles['red-bg']].join(' ')}
-                    onClick={() => rejectAeppClientConnection(client)}
-                  >
-                    Reject
-                  </button>
-                </div>
-              )
-            }
-            <br /><br />
+            <Button
+              my={8}
+              colorScheme='red'
+              onClick={() => disconnectClient(client.clientId as any)}
+            >
+              Disconnect
+            </Button>
 
-            {
-              client.connected && (
-                <div className={styles['row']}>
-                  <button
-                    className={[styles['button'], styles['red-bg']].join(' ')}
-                    onClick={() => disconnectClient(client)}
-                  >
-                    Disconnect
-                  </button>
-                </div>
-              )
-            }
-
-          </div>
+            <Accordion allowToggle>
+              <AccordionItem>
+                <h2>
+                  <AccordionButton>
+                    <Box flex='1' textAlign='left'>
+                      Client JSON Data
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                  <pre>
+                    {JSON.stringify(client, null, 4)}
+                  </pre>
+                </AccordionPanel>
+              </AccordionItem>
+            </Accordion>
+          </Box>
         ))
       }
-      <hr />
-      <hr />
     </div>
   )
 
   return (
-    <div className={styles['container']}>
-      <h1>Wallet {sdkReady ? 'Ready' : 'Not Ready'}</h1>
+    <Container>
+      <Box pt={8}>
+        {
+          sdkReady ? (
+            <Alert status='info'>
+              <AlertIcon />
+              <AlertTitle>WalletSDK </AlertTitle>
+              <AlertDescription> is ready </AlertDescription>
+            </Alert>
+          ) : (
+            <Spinner
+              thickness='4px'
+              speed='0.65s'
+              emptyColor='gray.200'
+              color='red.500'
+              size='xl'
+            />
+          )
+        }
+      </Box>
 
 
       {renderScanAndWalletInputCard()}
+      {renderQrScanner()}
       {renderClients()}
-
-      <hr />
-        {JSON.stringify(clients)}
-      <hr />
-    </div>
+    </Container>
   );
 }
 
